@@ -19,7 +19,10 @@ steps:
         'beta',
         'run',
         'deploy',
-        'hello-world',
+        '${_SERVICE_NAME}',
         '--image=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
-        '--region=us-central1',
+        '--region=${_LOCATION}',
       ]
+substitutions:
+  _SERVICE_NAME: hello-world-service
+  _LOCATION: us-central1
