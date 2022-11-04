@@ -6,7 +6,7 @@ terraform {
 }
 
 provider "google" {
-  project = "sc-dso-dev"
+  project = "ninth-rain-364409"
 }
 
 # Enables the Cloud Run API
@@ -46,8 +46,8 @@ resource "google_cloud_run_service_iam_member" "run_all_users" {
 resource "google_cloudbuild_trigger" "filename-trigger" {
 
   github {
-           name  = "Cloudrun-test" 
-           owner = "Sleep-Country"
+           name  = "git-runner-terraform" 
+           owner = "Varunarora2201"
 
            push {
                branch       = "^main$"
