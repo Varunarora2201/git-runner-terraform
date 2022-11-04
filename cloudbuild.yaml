@@ -1,0 +1,25 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+      ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [
+        'beta',
+        'run',
+        'deploy',
+        'hello-world',
+        '--image=gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+        '--region=us-central1',
+      ]
