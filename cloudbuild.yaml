@@ -4,14 +4,14 @@ steps:
       [
         'build',
         '-t',
-        'gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+        'gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
         '.',
       ]
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'push',
-        'gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+        'gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
       ]
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -20,6 +20,6 @@ steps:
         'run',
         'deploy',
         'hello-world',
-        '--image=gcr.io/ninth-rain-364409/hello-world:$SHORT_SHA',
+        '--image=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
         '--region=us-central1',
       ]
