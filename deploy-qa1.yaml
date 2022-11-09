@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ${_SERVICE_NAME}
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA
+
+substitutions:
+  _SERVICE_NAME: hello-world-service

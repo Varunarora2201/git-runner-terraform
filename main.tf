@@ -57,6 +57,42 @@ resource "google_cloudbuild_trigger" "filename-trigger" {
 
   filename = "cloudbuild.yaml"
 }
+resource "google_clouddeploy_target" "primary" {
+  location = "us-west1"
+  name     = "target"
+
+#Optional
+#---
+  annotations = {
+    my_first_annotation = "example-annotation-1"
+
+    my_second_annotation = "example-annotation-2"
+  }
+#---
+  description = "basic description"
+
+#Use one of them
+#---
+   gke {
+     cluster = "projects/my-project-name/locations/us-west1/clusters/example-cluster-name"
+   }
+
+   anthos_cluster {
+     membership = "projects/{project}/locations/{location}/memberships/{membership_name}"
+   }
+#---
+
+#Optional
+#---
+  labels = {
+    my_first_label = "example-label-1"
+
+    my_second_label = "example-label-2"
+  }
+  project          = "my-project-name"
+  require_approval = false
+#---
+}
 locals {
   network_name    = var.create_network ? google_compute_network.gh-network[0].self_link : var.network_name
   subnet_name     = var.create_subnetwork ? google_compute_subnetwork.gh-subnetwork[0].self_link : var.subnet_name

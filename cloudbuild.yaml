@@ -26,3 +26,11 @@ steps:
 substitutions:
   _SERVICE_NAME: hello-world-service
   _LOCATION: us-central1
+
+
+  #modification required: 
+  # gcloud beta deploy releases promote \
+  #   --release="release-${RELEASE_TIMESTAMP}" \
+  #   --delivery-pipeline=cloud-run-pipeline \
+  #   --region=${REGION} \
+  #   --quiet

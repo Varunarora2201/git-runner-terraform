@@ -1,0 +1,13 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello-world-service
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128Mi

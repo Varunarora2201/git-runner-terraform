@@ -1,0 +1,40 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: cloud-run-pipeline
+description: application deployment pipeline
+serialPipeline:
+ stages:
+ - targetId: DEV
+   profiles: [DEV]
+ - targetId: QA1
+   profiles: [QA1]
+ - targetId: UAT
+   profiles: [UAT]
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: DEV
+description: Cloud Run development service
+run:
+ location: projects/_PROJECT_ID/locations/us-west1
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: QA1
+description: Cloud Run QA service
+run:
+ location: projects/_PROJECT_ID/locations/us-central1
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: UAT
+description: Cloud Run UAT service
+run:
+ location: projects/_PROJECT_ID/locations/us-south1
