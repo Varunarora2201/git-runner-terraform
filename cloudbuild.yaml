@@ -13,16 +13,15 @@ steps:
         'push',
         'gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
       ]
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - > 
-      gcloud deploy releases create release-$BUILD_ID
-      --delivery-pipeline=hello-world-app
-      --region=${_LOCATION}
-      --source=./
-      --images=[gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA]
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    args: 
+        [
+          "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
+          "--delivery-pipeline", "cloud-run-pipeline",
+          "--region", "${_LOCATION}",
+          "--images", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA"
+        ]
+    entrypoint: gcloud
 substitutions:
   _SERVICE_NAME: hello-world-service
   _LOCATION: us-central1
