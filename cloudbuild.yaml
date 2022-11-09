@@ -22,7 +22,7 @@ steps:
       --delivery-pipeline=hello-world-app
       --region=${_LOCATION}
       --source=./
-      --images=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA
+      --images=[gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA]
 substitutions:
   _SERVICE_NAME: hello-world-service
   _LOCATION: us-central1
