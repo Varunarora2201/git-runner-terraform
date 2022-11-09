@@ -13,24 +13,16 @@ steps:
         'push',
         'gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
       ]
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
     args:
-      [
-        'beta',
-        'run',
-        'deploy',
-        '${_SERVICE_NAME}',
-        '--image=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA',
-        '--region=${_LOCATION}',
-      ]
+    - '-c'
+    - > 
+      gcloud deploy releases create release-$BUILD_ID
+      --delivery-pipeline=hello-world-app
+      --region=${_LOCATION}
+      --source=./
+      --images=gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA
 substitutions:
   _SERVICE_NAME: hello-world-service
   _LOCATION: us-central1
-
-
-  #modification required: 
-  # gcloud beta deploy releases promote \
-  #   --release="release-${RELEASE_TIMESTAMP}" \
-  #   --delivery-pipeline=cloud-run-pipeline \
-  #   --region=${REGION} \
-  #   --quiet
