@@ -19,7 +19,7 @@ steps:
           "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
           "--delivery-pipeline", "cloud-run-pipeline",
           "--region", "${_LOCATION}",
-          "--images", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$SHORT_SHA"
+          "--images", "app=${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/containers-repo/app:$BUILD_ID"
         ]
     entrypoint: gcloud
 substitutions:
